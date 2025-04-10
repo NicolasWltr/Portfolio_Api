@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { EmailService } from './email.service';
 
 @Controller('email')
@@ -10,5 +10,10 @@ export class EmailController {
     const { name, email, message } = body;
     await this.emailService.sendEmail(name, email, message);
     return { message: 'Email sent successfully' };
+  }
+
+  @Get('health')
+  async healthCheck(): Promise<{ status: string }> {
+    return { status: 'OK' };
   }
 }
